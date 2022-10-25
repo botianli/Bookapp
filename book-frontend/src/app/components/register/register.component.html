@@ -1,0 +1,46 @@
+<div  fxLayout="column" fxLayoutAlign="center">
+
+<div fxLayout="column" fxLayoutAlign="center center">
+    <mat-icon>assignment</mat-icon>
+    <h1>Welcome new user</h1>
+</div>
+<div  fxLayoutAlign="center center" fxFlexFill>
+    <mat-card fxFlex="40" >
+
+          <form  [formGroup]="registerForm"  (ngSubmit)="onSubmit()" fxLayoutAlign="stretch" fxLayout="column">
+
+
+                <mat-form-field appearance="legacy">
+                  <mat-label>First Name</mat-label>
+                  <input matInput formControlName="firstName"  placeholder="First Name">
+
+                </mat-form-field>
+
+                <mat-form-field appearance="legacy">
+                  <mat-label>Last Name</mat-label>
+                  <input matInput  formControlName="lastName" placeholder="Last Name">
+
+                </mat-form-field>
+
+                <mat-form-field appearance="legacy">
+                  <mat-label>Password</mat-label>
+                  <input matInput  type="password" formControlName="password" placeholder="Password">
+                </mat-form-field>
+
+                <mat-form-field appearance="legacy">
+                  <mat-label>Email</mat-label>
+                  <input matInput  formControlName="email" placeholder="Email">
+
+                </mat-form-field>
+
+                <button mat-stroked-button color="primary" [disabled]="!registerForm.valid" type="submit">Register</button>
+          </form>
+          <div class="errorMessages" *ngIf="signedupError">
+            <p>User already exists, please try again</p>
+        </div>
+
+    </mat-card>
+
+</div>
+
+</div>

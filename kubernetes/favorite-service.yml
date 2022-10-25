@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: favorite-service
+  labels:
+    app: favorite-service
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: favorite-service
+  template:
+    metadata:
+      labels:
+        app: favorite-service
+    spec:
+      containers:
+        - name: favorite-service
+          image: sivabalusu05/bookapp-favorite-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8091
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: favorite-service
+  namespace: default
+spec:
+  selector:
+    app: favorite-service
+  ports:
+    - port: 8091
+      targetPort: 8091
+      protocol: TCP
+  type: ClusterIP

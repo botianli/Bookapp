@@ -1,0 +1,12 @@
+<div class="intro" fxFlexAlign="center">
+    <h1>Your favorite authors</h1>
+</div>
+
+<div fxLayoutAlign="center center" *ngIf="showLoading">
+    <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="loaded">
+    <br>
+    <app-authorlist [data]="authorData"></app-authorlist>
+</div>

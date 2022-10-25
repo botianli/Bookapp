@@ -1,0 +1,38 @@
+<header>
+    <mat-toolbar color="primary">
+      <button mat-icon-button (click)="toggleSideBar()">
+        <mat-icon>menu</mat-icon>
+    </button>
+
+        <span class="logo">CGI Library</span>
+        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+          <div>
+            <div *ngIf="user.lastName==''; else elseBlock">
+              <button title="Login" routerLink="/login" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+                <mat-icon>account_box</mat-icon></button>
+
+              </div>
+            <ng-template #elseBlock>
+              <button title="Profile" routerLink="/profile" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+                <mat-icon>account_box</mat-icon></button>
+
+              </ng-template>
+
+
+
+          </div>
+
+          <div *ngIf="!(user.lastName=='')">
+            <button title="Logout" (click)="logout()" mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+              <mat-icon>meeting_room</mat-icon>
+            </button>
+          </div>
+
+          <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+            <mat-icon>share</mat-icon>
+          </button> -->
+        </div>
+
+      </mat-toolbar>
+
+</header>

@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+  labels:
+    app: user-service
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+        - name: user-service
+          image: sivabalusu05/bookapp-user-service:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8090
+          env:   # Setting Enviornmental Variables
+            - name: DB_HOST   # Setting Database host address from configMap
+              value: mysqldb
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: mysql-config  # name of configMap
+#                  key: host
+            - name: DB_NAME  # Setting Database name from configMap
+              value: BookApp
+#              valueFrom:
+#                configMapKeyRef:
+#                  name: mysql-config
+#                  key: name
+            - name: DB_USERNAME  # Setting Database username from Secret
+              value: root
+#              valueFrom:
+#                secretKeyRef:
+#                  name: mysql-credentials # Secret Name
+#                  key: username
+            - name: DB_PASSWORD # Setting Database password from Secret
+              value: root
+#              valueFrom:
+#                secretKeyRef:
+#                  name: mysql-credentials
+#                  key: password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+  namespace: default
+spec:
+  selector:
+    app: user-service
+  ports:
+    - port: 8090
+      targetPort: 8090
+      protocol: TCP
+  type: ClusterIP

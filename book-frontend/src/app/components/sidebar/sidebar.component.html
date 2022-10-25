@@ -1,0 +1,45 @@
+<div>
+  <mat-nav-list>
+
+    <mat-divider></mat-divider>
+    <br>
+    <div *ngIf="user.lastName==''">
+
+      <a mat-list-item routerLinkActive="list-item-active" routerLink="/register">
+        <mat-icon>account_circle</mat-icon>
+        Register
+      </a>
+      <a mat-list-item routerLinkActive="list-item-active" routerLink="/login">
+        <mat-icon>account_circle</mat-icon>
+        Login
+      </a>
+    </div>
+
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/search">
+      <mat-icon>search</mat-icon>
+
+      Search
+    </a>
+    <div *ngIf="user.lastName!==''">
+
+      <a mat-list-item routerLinkActive="list-item-active" routerLink="/favorite">
+        <mat-icon>favorite</mat-icon>
+
+        Favorite
+      </a>
+      <a mat-list-item routerLinkActive="list-item-active" routerLink="/author">
+        <mat-icon>group</mat-icon>
+
+        Author
+      </a>
+
+      <a mat-list-item routerLinkActive="list-item-active" routerLink="/recommendation">
+        <mat-icon>grade</mat-icon>
+
+        Recommendation
+      </a>
+    </div>
+
+  </mat-nav-list>
+
+</div>

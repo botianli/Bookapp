@@ -1,0 +1,35 @@
+<h1 class="greating">Search</h1>
+<mat-toolbar-row>
+
+  <mat-form-field fxFlex="10">
+    <mat-label>Search by:</mat-label>
+    <mat-select [formControl]="selectedOption">
+      <mat-option *ngFor="let option of options" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="search-bar" fxFlex>
+    <input type="text" (keyup.enter)="onSubmit()" matInput [formControl]="input" placeholder="Search">
+
+  </mat-form-field>
+
+  <button mat-stroked-button color="primary" title="Search" (click)="onSubmit()" type="submit" fxFlex="10">
+    <mat-icon>search</mat-icon>
+  </button>
+
+</mat-toolbar-row>
+
+<br>
+<br>
+<div fxLayoutAlign="center center" *ngIf="showNotfound">
+  <h1>No results found</h1>
+</div>
+<div fxLayoutAlign="center center" *ngIf="showLoading">
+  <mat-spinner></mat-spinner>
+
+</div>
+<div *ngIf="loaded">
+  <app-searchtable [data]="bookData"></app-searchtable>
+</div>

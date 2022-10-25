@@ -1,0 +1,13 @@
+<div class="intro" fxFlexAlign="center">
+    <h1>Recommendation For you!</h1>
+</div>
+
+<div fxLayoutAlign="center center" *ngIf="showLoading">
+    <mat-spinner></mat-spinner>
+
+</div>
+
+<div *ngIf="loaded">
+    <br>
+    <app-searchtable [data]="bookData"></app-searchtable>
+</div>

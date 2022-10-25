@@ -1,0 +1,66 @@
+version: '3.7'
+services:
+  #mysql
+  mysqldb:
+    container_name: mysql-container
+    image: mysql:5.7
+    hostname: mysqldb
+    ports:
+      - "6603:3306"
+    environment:
+      MYSQL_DATABASE: BookApp
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+  #api-gateway
+  apigateway:
+    container_name: api-gateway
+    image: "api-gateway-image"
+    build: apigateway/
+    ports:
+      - "8099:8099"
+  #user-service
+  userservice:
+    container_name: user-service
+    image: "user-service-image"
+    build: userservice/
+    ports:
+      - "8090:8090"
+    depends_on:
+      - mysqldb
+    environment: # Pass environment variables to the service
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/BookApp?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    links:
+      - "mysqldb"
+    command: sh -c './wait-for mysqldb:3306 -- npm start'
+  #favorite-service
+  favoriteservice:
+    container_name: favorite-service
+    image: "favorite-service-image"
+    build: favoriteservice/
+    ports:
+      - "8091:8091"
+  #front-end service
+  book-frontend:
+    container_name: book-frontend
+    image: "book-frontend-image"
+    build: book-frontend/
+    ports:
+      - "4201:80"
+    links:
+      - "userservice"
+      - "favoriteservice"
+    depends_on:
+      - "userservice"
+      - "favoriteservice"
+  #search-service
+  searchservice:
+    container_name: search-service
+    image: "search-service-image"
+    build: searchservice/
+    ports:
+      - "8092:8092"
+
+
+

@@ -1,0 +1,32 @@
+<div fxLayoutAlign="center center" fxLayout="column">
+
+    <mat-card class="example-card">
+      <div *ngIf=" !thereIsProfile ; else show">
+
+        <img mat-card-image src="../../../assets/default_user.png">
+
+    </div>
+
+    <ng-template #show>
+
+      <img [src]="imageSource" >
+
+    </ng-template>
+
+
+      <mat-card-content>
+        <h2>{{user.firstName}} {{user.lastName}}</h2>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <input
+        style="display: none"
+        type="file" (change)="onFileChanged($event)"
+        #fileInput>
+        <br>
+        <button mat-stroked-button color="primary" (click)="fileInput.click()">Select File</button>
+        <button mat-stroked-button color="primary" (click)="onUpload()">Upload</button>
+      </mat-card-actions>
+    </mat-card>
+
+ </div>
